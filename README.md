@@ -1,5 +1,9 @@
 # Lógica-Computacional 2019-1
 
-### Profesor: César Hernández Cruz
-### Ayudante: Víctor ZAmora Gutiérrez
-### Ayudante Lab: Diego Carrillo Verduzco
+## Universidad Nacional Autónoma de México
+### Facultad de Ciencias
+### Ciencias de la Computación
+
+ - **Profesor:** César Hernández Cruz
+ - **Ayudante:** Víctor Zamora Gutiérrez
+ - **Ayudante Lab:** Diego Carrillo Verduzco
