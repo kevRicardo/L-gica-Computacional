@@ -35,7 +35,7 @@ module Estructuras where
         Cero -> 0
         (Suc n) -> 1 + natInt n
 
---1-2 Lista de naturales
+----1-2 Lista de naturales
 
     --Definimos la lista de naturales.
     data ListaDeNaturales = Nil 
