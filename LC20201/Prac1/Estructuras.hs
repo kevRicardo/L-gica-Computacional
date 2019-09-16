@@ -1,5 +1,5 @@
 --Lógica Comoutacional 2020-1
---Profesor: Miguel Carrillo Barajas
+--Profesor: Dr. Miguel Carrillo Barajas
 --Ayudante: Sara Doris Montes Incin
 --Ayudante Lab.: Mauricio Esquivel Reyes
 
