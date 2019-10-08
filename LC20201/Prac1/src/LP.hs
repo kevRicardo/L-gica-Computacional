@@ -5,8 +5,9 @@
 
 --Práctica 01
 --Lógica Proposicional
---Alumno: Kevin Ricardo Villegas Salvador
---No. de Cuenta: 314173739
+--Francisco Javier Tonatiuh Fuentes Juárez
+--Kevin Ricardo Villegas Salvador
+--Roberto Carlos Uribe Cerda
 
 module LP where
 
@@ -27,7 +28,7 @@ module LP where
         Bot -> False
         Var i -> False
         Oneg p -> hayImplicacion p
-        Oand p q -> hayImplicacion p && hayImplicacion q
+        Oand p q -> hayImplicacion p || hayImplicacion q
         Oor p q -> case p of
             Oneg r -> True
             _        -> hayImplicacion p || hayImplicacion q
@@ -41,7 +42,7 @@ module LP where
         Var i -> []
         Oneg p -> disy p
         Oand p q -> disy p ++ disy q
-        Oor p q -> [pl]
+        Oor p q -> [pl] ++ disy p ++ disy q
         Oimp p q -> disy p ++ disy q
                   --[pl] ya que p -> q = ¬p v q
 
@@ -55,14 +56,3 @@ module LP where
         Oand p q -> 1 + numConj p + numConj q
         Oor p q -> numConj p + numConj q
         Oimp p q -> numConj p + numConj q
-
-{---------Pruebas----------}
-
---Debe regresar: True
-    prueba1 = hayImplicacion $Oor (Var 1) $Oimp (Var 2) (Var 3)
-
---Debe regresar: Oor (Var 1) Oneg $ Var 2, Oor Bot (Var 3)
-    prueba2 = disy $Oand (Oor (Var 1) $Oneg $ Var 2) $Oor Bot (Var 3)
-
---Debe regresar: 2
-    prueba3 = numConj $Oand (Oor (Var 1) $Oneg $ Var 2) $Oand Top (Var 3)

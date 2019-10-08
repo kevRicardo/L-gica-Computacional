@@ -5,8 +5,9 @@
 
 --Práctica 01
 --Estructuras
+--Alumno: Francisco Javier Tonatoiuh Fuentes Juárez
 --Alumno: Kevin Ricardo Villegas Salvador
---No. de Cuenta: 314173739
+--Alumno: Roberto Carlos Uribe Cerda
 
 module Estructuras where
 
@@ -19,7 +20,12 @@ module Estructuras where
 
     --Dados dos naturales nos dice si el primero es mayor que el segundo.
     mayorQue :: Natural -> Natural -> Bool
-    mayorQue n m = natInt n > natInt m
+    mayorQue n m = if n == m
+        then False
+        else case n of
+            Suc k -> k == m
+            Suc k -> mayorQue k m
+            otherwise -> False
 
     --Dados os naturales nos dice si el primero es menor que el segundo.
     menorQue :: Natural -> Natural -> Bool
