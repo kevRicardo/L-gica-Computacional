@@ -20,12 +20,8 @@ module Estructuras where
 
     --Dados dos naturales nos dice si el primero es mayor que el segundo.
     mayorQue :: Natural -> Natural -> Bool
-    mayorQue n m = if n == m
-        then False
-        else case n of
-            Suc k -> k == m
-            Suc k -> mayorQue k m
-            otherwise -> False
+    mayorQue n Cero = False
+    mayorQue (Suc n) l@(Suc m) = not $igual n l
 
     --Dados os naturales nos dice si el primero es menor que el segundo.
     menorQue :: Natural -> Natural -> Bool
