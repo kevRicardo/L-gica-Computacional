@@ -32,7 +32,7 @@ data ReglaDN =
 type Caja   = (Int,Int) -- Caja de suposiciones. Huth-Ryan p.12.
                         -- (i,j), 0<i<=j: caja cerrada de i a j
                         -- (i,j), 0=j<i : caja abierta de i a ...
-            -- Proofs may nest boxes or open new boxes after old ones have been closed.
+            -- Proofs may next boxes or open new boxes after old ones have been closed.
             -- There are rules about which formulas can be used at which points in the proof. 
             -- Generally, we can only use a formula φ in a proof at a given point if:
             --      (1) that formula occurs prior to that point and
@@ -115,7 +115,7 @@ checkIcon lpp p = -- listaDePasosPrevios pasoActual
         (nN,(_,_,lcN))= ultimoPaso lpp
 --
 checkEcon1 :: [NumPaso] -> NumPaso -> Bool
--- Sean lpp una lista de pasos numerados y p un paso numerado.
+-- Sean lpp una lista de pasos numerados y p un pabiertaso numerado.
 -- checkEcon1 lpp p=True sii p cumple los requisitos para ser el siguiente paso de lpp mediante eliminacion de la conjuncion 1.
 checkEcon1 lpp p = -- listaDePasosPrevios pasoActual
     case p of -- pasoNumerado = (numPaso,(phi,regla,listaCajas))
@@ -181,19 +181,49 @@ checkIdis1 :: [NumPaso] -> NumPaso -> Bool
 -- Sean lpp una lista de pasos numerados y p un paso numerado.
 -- checkEdis1 lpp p=True sii p cumple los requisitos para ser el siguiente paso de lpp mediante introduccion de la disyuncion 1.
 checkIdis1 lpp p = -- listaDePasosPrevios pasoActual
-    error $ "checkIdis1: caso no implementado aun, (p,lpp)="++show (p,"  ",lpp)
+    case p of
+        (m,(w,Idis1 i, lc)) ->  lpp /= []
+                                && m == nN+1
+                                && dis1
+                                && fi == f
+                                where
+                                (dis1, f, _) = esDisyuncion w
+                                fi = phiOfPaso i lpp
+        _                   ->  False
+        where
+        (nN, (_,_,lcN)) = ultimoPaso lpp
 --
 checkIdis2 :: [NumPaso] -> NumPaso -> Bool
 -- Sean lpp una lista de pasos numerados y p un paso numerado.
 -- checkEdis2 lpp p=True sii p cumple los requisitos para ser el siguiente paso de lpp mediante introduccion de la disyuncion 2.
 checkIdis2 lpp p = -- listaDePasosPrevios pasoActual
-    error $ "checkIdis2: caso no implementado aun, (p,lpp)="++show (p,"  ",lpp)
+    case p of
+        (n,(v,Idis2 j, lc)) ->  lpp /= []
+                                && n == nN+1
+                                && dis2
+                                && fj == g
+                                where
+                                (dis2, _, g) = esDisyuncion v
+                                fj = phiOfPaso j lpp
+        _                   ->  False
+        where
+        (nN, (_,_,lcN)) = ultimoPaso lpp
 --
 checkE2neg :: [NumPaso] -> NumPaso -> Bool
 -- Sean lpp una lista de pasos numerados y p un paso numerado.
 -- checkE2neg lpp p=True sii p cumple los requisitos para ser el siguiente paso de lpp mediante eliminacion de doble negacion.
 checkE2neg lpp p = -- listaDePasosPrevios pasoActual
-    error $ "E2neg: caso no implementado aun, (p,lpp)="++show (p,"  ",lpp)
+    case p of
+        (m,(w, E2neg i, lc)) -> lpp /= []
+                                && m == nN+1
+                                && lc == lcN
+                                && usableP i lc nN
+                                && l == w
+                                where
+                                (Oneg (Oneg l)) = phiOfPaso i lpp
+        _                    -> False
+        where
+        (nN, (_,_,lcN)) = ultimoPaso lpp
 --
 checkIimp :: [NumPaso] -> NumPaso -> Bool
 -- Sean lpp una lista de pasos numerados y p un paso numerado.
